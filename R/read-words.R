@@ -31,6 +31,6 @@ read_words_from_sheet <- function(topic = NULL) {
     ungroup() %>%
     dplyr::select(-topic)
 
-
+ Unique_words
 
 }
