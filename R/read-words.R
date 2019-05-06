@@ -6,7 +6,7 @@
 #' @export
 read_words_from_sheet <- function(topic = NULL) {
   key <- "1kQkXjkQFQctKWBplsAqDkI3oxczQDADUCA5hc1Gcn60"
-  Words <- gs_read(gs_key(key))
+  Words <- googlesheets::gs_read(gs_key(key))
   names(Words) <- c("time", "topic", "words", "who")
   topic_set  <- unique(Words$topic)
   if (is.null(topic)) {
@@ -18,7 +18,7 @@ read_words_from_sheet <- function(topic = NULL) {
 
   Words %>%
     mutate(words = strsplit(as.character(words), "\n")) %>%
-    unnest(words) %>%
+    tidyr::unnest(words) %>%
     mutate(stars = nchar(gsub("[^\\*]", "", words))) %>%
     mutate(words = gsub("[ \\*]\\*+", "", words)) -> foo
   Unique_words <- foo %>%
